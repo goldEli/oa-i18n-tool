@@ -7,6 +7,8 @@ ifun oa 国际化工具
 * 自动生成国际化资源
 * 自动生成国际化代码
 
+![index tsx - web-react - Visual Studio Code 2023-08-08 15-08-08](https://github.com/goldEli/oa-i18n-tool/assets/18217162/1add281b-a92d-4f28-93af-201230360ec8)
+
 ## Todo
 
 - [ ] 支持模板语法
