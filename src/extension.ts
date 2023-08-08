@@ -1,7 +1,12 @@
 import * as vscode from "vscode";
 import * as babel from "@babel/core";
 import type { NodePath, types } from "@babel/core";
-import { containsChinese, getRootPath, readJSONFile } from "./utils";
+import {
+  containsChinese,
+  createI18n,
+  getRootPath,
+  readJSONFile,
+} from "./utils";
 import path = require("path");
 import { error } from "console";
 
@@ -40,6 +45,7 @@ export function activate(context: vscode.ExtensionContext) {
 
       if (editor) {
         const selectedText = editor.document.getText(editor.selection);
+
         if (!containsChinese(selectedText)) {
           vscode.window.showInformationMessage("选中文本中不包含中文！");
           return;
@@ -47,11 +53,20 @@ export function activate(context: vscode.ExtensionContext) {
         if (!selectedText) {
           return;
         }
+        const { key } = await createI18n(selectedText);
+        editor.edit((builder) => {
+          builder.replace(editor.selection, `t("${key}")`);
+        });
+
+        vscode.window.showInformationMessage("执行成功！");
+        // 如果 key 不存在对应的国际化直接替换，生成资源文件
+        if (!zhObj[key]) {
+          return;
+        }
 
         // editor.edit((builder) => {
         //   builder.replace(editor.selection, transform(selectedText));
         // });
-        vscode.window.showInformationMessage("执行成功！");
       }
     }
   );
