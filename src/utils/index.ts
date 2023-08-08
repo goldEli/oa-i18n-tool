@@ -2,6 +2,7 @@ import * as vscode from "vscode";
 import * as fs from "fs";
 // import axios from "axios";
 import { translateToEn } from "./translateToEn";
+import path = require("path");
 
 export function containsChinese(text: string): boolean {
   const pattern = /[\u4e00-\u9fa5]/; // 匹配中文字符的正则表达式
@@ -103,3 +104,15 @@ export function addContentToJsonFile(
     console.error("无法添加内容到JSON文件:", error);
   }
 }
+
+export const getI18nPath = () => {
+  // 根目录
+  const rootPath = getRootPath().slice(3);
+  // 国际化资源文件路径
+  const enPath = path.join(rootPath, "/src/locals/en.json");
+  const zhPath = path.join(rootPath, "/src/locals/zh.json");
+  return {
+    enPath,
+    zhPath,
+  };
+};

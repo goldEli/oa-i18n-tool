@@ -5,6 +5,7 @@ import {
   addContentToJsonFile,
   containsChinese,
   createI18n,
+  getI18nPath,
   getRootPath,
   handleSelectedText,
   readJSONFile,
@@ -50,11 +51,9 @@ export function activate(context: vscode.ExtensionContext) {
     "i18nReplace",
     async () => {
       const editor = vscode.window.activeTextEditor;
-      // 根目录
-      const rootPath = getRootPath().slice(3);
-      // 国际化资源文件路径
-      const enPath = path.join(rootPath, "/src/locals/en.json");
-      const zhPath = path.join(rootPath, "/src/locals/zh.json");
+
+      const { enPath, zhPath } = getI18nPath();
+
       const enObj = await readJSONFile(enPath);
       const zhObj = await readJSONFile(zhPath);
 
