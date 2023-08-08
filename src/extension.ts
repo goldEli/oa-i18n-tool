@@ -51,6 +51,13 @@ export function activate(context: vscode.ExtensionContext) {
     "i18nReplace",
     async () => {
       const editor = vscode.window.activeTextEditor;
+      // let all = await vscode.workspace.getConfiguration();
+
+      // let allAsJSON = JSON.parse(JSON.stringify(all)); // the key line
+
+      // const editorSettings = allAsJSON.editor;
+    
+      // let configuration = vscode.workspace.getConfiguration('ifun-oa-i18n').ifunI18n;
 
       const { enPath, zhPath } = getI18nPath();
 

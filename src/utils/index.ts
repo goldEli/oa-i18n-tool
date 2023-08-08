@@ -106,13 +106,20 @@ export function addContentToJsonFile(
 }
 
 export const getI18nPath = () => {
+  const document = vscode.window.activeTextEditor?.document;
+  const resource = document
+    ? { uri: document.uri, languageId: document.languageId }
+    : undefined;
+  const configuration = vscode.workspace.getConfiguration(
+    "ifun-oa-i18n.url",
+    resource
+  ) as any;
+  const { enPath, zhPath } = configuration;
   // 根目录
   const rootPath = getRootPath().slice(3);
   // 国际化资源文件路径
-  const enPath = path.join(rootPath, "/src/locals/en.json");
-  const zhPath = path.join(rootPath, "/src/locals/zh.json");
   return {
-    enPath,
-    zhPath,
+    enPath: enPath ?? path.join(rootPath, "/src/locals/en.json"),
+    zhPath: zhPath ?? path.join(rootPath, "/src/locals/zh.json"),
   };
 };

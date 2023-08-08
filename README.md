@@ -1,31 +1,24 @@
-# ifun-oa-i18n README
+# ifun-oa-i18n 
 
-This is the README for your extension "ifun-oa-i18n". After writing up a brief description, we recommend including the following sections.
+ifun oa 国际化工具
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
-
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+* 自动生成国际化资源
+* 自动生成国际化代码
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+配置国际化资源路径(绝对路径)
 
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+```json
+{
+ "ifun-oa-i18n.url": {
+    "enPath": "\\projects\\web-react\\src\\locals\\en.json",
+    "zhPath": "\\projects\\web-react\\src\\locals\\zh.json"
+  }
+}
+```
 
 ## Known Issues
 

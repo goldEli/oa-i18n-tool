@@ -13,6 +13,17 @@
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "ifun i18n",   
+      "properties": {
+        "ifun-oa-i18n.url": {
+          "type": "object",
+          "default": null,
+          "description": "国际化资源配置"
+        }
+      }
+    },
     "commands": [
       {
         "command": "i18nReplace",
