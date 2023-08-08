@@ -85,3 +85,21 @@ export const handleSelectedText = (str: string) => {
 
   return temp;
 };
+
+export function addContentToJsonFile(
+  filePath: string,
+  jsonData: any,
+  addJsonData: any
+): void {
+  try {
+    // 合并新的内容
+    const updatedData = { ...jsonData, ...addJsonData };
+
+    // 将内容写入 JSON 文件
+    fs.writeFileSync(filePath, JSON.stringify(updatedData, null, 2));
+
+    console.log("成功向JSON文件添加内容");
+  } catch (error) {
+    console.error("无法添加内容到JSON文件:", error);
+  }
+}

@@ -2,6 +2,7 @@ import * as vscode from "vscode";
 import * as babel from "@babel/core";
 import type { NodePath, types } from "@babel/core";
 import {
+  addContentToJsonFile,
   containsChinese,
   createI18n,
   getRootPath,
@@ -68,19 +69,24 @@ export function activate(context: vscode.ExtensionContext) {
           return;
         }
         const text = handleSelectedText(selectedText);
-        const { key, objEn, objZh } = await createI18n(text);
+        const {
+          key,
+          objEn: addObjEn,
+          objZh: addObjZh,
+        } = await createI18n(text);
         editor.edit((builder) => {
           builder.replace(editor.selection, `t('${key}')`);
         });
 
-        vscode.window.showInformationMessage(
-          "执行成功：" + JSON.stringify(objEn) + JSON.stringify(objZh)
-        );
         // 如果 key 不存在对应的国际化直接替换，生成资源文件
-        // if (!zhObj[key]) {
-        //   return;
-        // }
+        if (!zhObj[key]) {
+          addContentToJsonFile(zhPath, zhObj, addObjZh);
+          addContentToJsonFile(enPath, enObj, addObjEn);
+        }
 
+        vscode.window.showInformationMessage(
+          "执行成功：" + JSON.stringify(addObjEn) + JSON.stringify(addObjZh)
+        );
         // editor.edit((builder) => {
         //   builder.replace(editor.selection, transform(selectedText));
         // });
