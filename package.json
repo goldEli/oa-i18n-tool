@@ -31,8 +31,8 @@
     "keybindings": [
       {
         "command": "i18nReplace",
-        "key": "ctrl+y",
-        "mac": "cmd+y",
+        "key": "ctrl+t",
+        "mac": "cmd+t",
         "when": "(resourceLangId == javascript || resourceLangId == typescript || resourceLangId == typescriptreact || resourceLangId == javascriptreact) && editorHasSelection"
       }
     ]

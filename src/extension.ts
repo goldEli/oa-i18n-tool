@@ -5,6 +5,7 @@ import {
   containsChinese,
   createI18n,
   getRootPath,
+  handleSelectedText,
   readJSONFile,
 } from "./utils";
 import path = require("path");
@@ -14,10 +15,23 @@ function transform(code: string): string {
   function autoOptionalPlugin() {
     return {
       visitor: {
-        MemberExpression(path: NodePath<types.MemberExpression>) {
+        Literal(path: NodePath<types.MemberExpression>) {
           const text = path.toString();
-
-          path.replaceWithSourceString(text.replace(/\./g, "?."));
+          console.log(text);
+          debugger;
+          // path.replaceWithSourceString(text.replace(/\./g, "?."));
+        },
+        Identifier(path: NodePath<types.MemberExpression>) {
+          const text = path.toString();
+          console.log(text);
+          debugger;
+          // path.replaceWithSourceString(text.replace(/\./g, "?."));
+        },
+        ExpressionStatement(path: NodePath<types.MemberExpression>) {
+          const text = path.toString();
+          console.log(text);
+          debugger;
+          // path.replaceWithSourceString(text.replace(/\./g, "?."));
         },
       },
     };
@@ -53,16 +67,19 @@ export function activate(context: vscode.ExtensionContext) {
         if (!selectedText) {
           return;
         }
-        const { key } = await createI18n(selectedText);
+        const text = handleSelectedText(selectedText);
+        const { key, objEn, objZh } = await createI18n(text);
         editor.edit((builder) => {
-          builder.replace(editor.selection, `t("${key}")`);
+          builder.replace(editor.selection, `t('${key}')`);
         });
 
-        vscode.window.showInformationMessage("执行成功！");
+        vscode.window.showInformationMessage(
+          "执行成功：" + JSON.stringify(objEn) + JSON.stringify(objZh)
+        );
         // 如果 key 不存在对应的国际化直接替换，生成资源文件
-        if (!zhObj[key]) {
-          return;
-        }
+        // if (!zhObj[key]) {
+        //   return;
+        // }
 
         // editor.edit((builder) => {
         //   builder.replace(editor.selection, transform(selectedText));

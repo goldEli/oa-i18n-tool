@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import * as fs from "fs";
-import axios from "axios";
+// import axios from "axios";
 import { translateToEn } from "./translateToEn";
 
 export function containsChinese(text: string): boolean {
@@ -62,7 +62,7 @@ export const createI18n = async (str: string) => {
   const objZh: Record<string, string> = {};
   const objEn: Record<string, string> = {};
   const en = await translateToEn(str);
-  const key = getCamelCaseString(en.split(" "));
+  const key = getCamelCaseString(en?.split(" ") ?? []);
   objZh[key] = str;
   objEn[key] = capitalize(en);
   return {
@@ -70,4 +70,18 @@ export const createI18n = async (str: string) => {
     objZh,
     objEn,
   };
+};
+
+export const handleSelectedText = (str: string) => {
+  let temp = str;
+  const first = temp.at(0) ?? "";
+  const last = temp.at(-1) ?? "";
+  if (['"', "'", "`"].includes(first)) {
+    temp = temp.slice(1);
+  }
+  if (['"', "'", "`"].includes(last)) {
+    temp = temp.slice(0, -1);
+  }
+
+  return temp;
 };
