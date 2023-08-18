@@ -3,6 +3,7 @@
   "displayName": "ifun-oa-i18n",
   "description": "i18n tool",
   "publisher": "miaoyu",
+  "icon": "./logo.png",
   "version": "0.0.2",
   "engines": {
     "vscode": "^1.81.0"
@@ -15,7 +16,7 @@
   "contributes": {
     "configuration": {
       "type": "object",
-      "title": "ifun i18n",   
+      "title": "ifun i18n",
       "properties": {
         "ifun-oa-i18n.url": {
           "type": "object",
