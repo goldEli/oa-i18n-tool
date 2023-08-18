@@ -29,7 +29,7 @@ ifun oa 国际化工具
 ### Usage
 
 * 选中中文后右键: "IFUN I18n"
-* 选中中文后也可以使用快捷键: cmd+y (Mac), ctrl+y (Win, Linux)
+* 选中中文后也可以使用快捷键: cmd+t (Mac), ctrl+t (Win, Linux)
 
 
 
