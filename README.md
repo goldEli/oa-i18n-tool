@@ -22,7 +22,8 @@ ifun oa 国际化工具
  "ifun-oa-i18n.url": {
     "enPath": "D:\\projects\\web-react\\src\\locals\\en.json",
     "zhPath": "D:\\projects\\web-react\\src\\locals\\zh.json"
-  }
+  },
+  "ifun-oa-i18n.tranSource":"google"
 }
 ```
 

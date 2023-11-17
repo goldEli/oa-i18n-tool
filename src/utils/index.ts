@@ -63,6 +63,9 @@ export const createI18n = async (str: string) => {
   const objZh: Record<string, string> = {};
   const objEn: Record<string, string> = {};
   const en = await translateToEn(str);
+  if (!en) {
+    vscode.window.showInformationMessage("翻译接口报错！");
+  }
   const key = getCamelCaseString(en?.split(" ") ?? []);
   objZh[key] = str;
   objEn[key] = capitalize(en);
