@@ -36,13 +36,16 @@ export function readJSONFile(filePath: string): Promise<any> {
     });
   });
 }
+function removeSpecialCharacters(inputString: string): string {
+  // 使用正则表达式匹配非字母和非数字的字符，并替换为空字符串
+  return inputString.replace(/[^a-zA-Z0-9]/g, "");
+}
 
 export const getCamelCaseString = (arr: string[]) => {
-  // 使用正则表达式模式进行匹配
-  const pattern = /^[A-Za-z]+$/;
 
   const str = arr
-    .filter((item) => pattern.test(item))
+    .map((item) => removeSpecialCharacters(item))
+    .filter((item) => !!item)
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
     .join("");
 
