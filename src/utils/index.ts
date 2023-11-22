@@ -41,9 +41,34 @@ function removeSpecialCharacters(inputString: string): string {
   return inputString.replace(/[^a-zA-Z0-9]/g, "");
 }
 
-export const getCamelCaseString = (arr: string[]) => {
+function replaceSpecialCharacters(inputString: string): string {
+  // 使用正则表达式匹配非字母和非数字的字符，并替换为空字符串
+  // return inputString.replace(/(/g, "");
+  const ret = inputString
+    .replace(/（/g, "zlp")
+    .replace(/）/g, "zrp")
+    .replace(/\(/g, "lp")
+    .replace(/\)/g, "rp")
+    .replace(/{/g, "lb")
+    .replace(/}/g, "rb")
+    .replace(/\[/g, "lsb")
+    .replace(/\]/g, "rsb")
+    .replace(/【/g, "zlsb")
+    .replace(/】/g, "zrsb")
+    .replace(/;/g, "semicolon")
+    .replace(/；/g, "zsemicolon")
+    .replace(/,/g, "comma")
+    .replace(/，/g, "zcomma")
+    .replace(/:/g, "colon")
+    .replace(/：/g, "zcolon");
 
+    // colon comma semicolon
+  return ret;
+}
+
+export const getCamelCaseString = (arr: string[]) => {
   const str = arr
+    .map((item) => replaceSpecialCharacters(item))
     .map((item) => removeSpecialCharacters(item))
     .filter((item) => !!item)
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
