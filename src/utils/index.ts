@@ -63,6 +63,8 @@ function replaceSpecialCharacters(inputString: string): string {
     .replace(/\//g, "slash")
     .replace(/\\/g, "backslash")
     .replace(/、/g, "zslash")
+    .replace(/?/g, "qmark")
+    .replace(/？/g, "zqmark")
     .replace(/：/g, "zcolon");
 
     // colon comma semicolon
