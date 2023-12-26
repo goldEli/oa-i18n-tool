@@ -67,7 +67,7 @@ function replaceSpecialCharacters(inputString: string): string {
     .replace(/？/g, "zqmark")
     .replace(/：/g, "zcolon");
 
-    // colon comma semicolon
+  // colon comma semicolon
   return ret;
 }
 
@@ -141,7 +141,55 @@ export function addContentToJsonFile(
   }
 }
 
-export const getI18nPath = () => {
+function configFileExists(filePath: string) {
+  try {
+    // 使用 fs.existsSync 检查文件是否存在
+    fs.accessSync(filePath, fs.constants.F_OK);
+    return true;
+  } catch (err) {
+    // 如果出现错误，说明文件不存在
+    return false;
+  }
+}
+function getValueByKey(filePath: string, key: string): Promise<any> {
+  return new Promise((resolve, reject) => {
+    // 读取 JSON 文件
+    fs.readFile(filePath, "utf-8", (err, data) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+
+      try {
+        // 将文件内容解析为 JSON 对象
+        const jsonData = JSON.parse(data);
+
+        // 获取指定 key 的 value
+        const value = jsonData[key];
+        resolve(value);
+      } catch (jsonError) {
+        reject(jsonError);
+      }
+    });
+  });
+}
+
+export const getI18nPath = async () => {
+  // 根目录
+  const rootPath = getRootPath().slice(3);
+  const configPath = path.resolve(rootPath, "./.ifun-oa-i18n.json");
+
+  if (configFileExists(configPath)) {
+    const value = await getValueByKey(configPath, "ifun-oa-i18n.url");
+
+    const ret = {
+      enPath: path.join(rootPath, value?.enPath),
+      zhPath: path.join(rootPath, value?.zhPath),
+    };
+    console.log("配置地址", ret);
+    return ret;
+  }
+
   const document = vscode.window.activeTextEditor?.document;
   const resource = document
     ? { uri: document.uri, languageId: document.languageId }
@@ -151,8 +199,6 @@ export const getI18nPath = () => {
     resource
   ) as any;
   const { enPath, zhPath } = configuration;
-  // 根目录
-  const rootPath = getRootPath().slice(3);
   // 国际化资源文件路径
   return {
     enPath: enPath ?? path.join(rootPath, "/src/locals/en.json"),

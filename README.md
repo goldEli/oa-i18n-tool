@@ -15,13 +15,26 @@ ifun oa 国际化工具
 
 ## Extension Settings
 
-配置国际化资源路径(绝对路径)
+#### 配置国际化资源路径(绝对路径)
 
 ```json
 {
  "ifun-oa-i18n.url": {
     "enPath": "D:\\projects\\web-react\\src\\locals\\en.json",
     "zhPath": "D:\\projects\\web-react\\src\\locals\\zh.json"
+  },
+  "ifun-oa-i18n.tranSource":"google"
+}
+```
+
+#### 仅用于当前项目配置（最高优先级）
+
+.ifun-oa-i18n.json
+```json
+{
+ "ifun-oa-i18n.url": {
+    "enPath": "./source/locals/en.json",
+    "zhPath": "./source/locals/zh.json"
   },
   "ifun-oa-i18n.tranSource":"google"
 }

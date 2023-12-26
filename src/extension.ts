@@ -59,7 +59,7 @@ export function activate(context: vscode.ExtensionContext) {
     
       // let configuration = vscode.workspace.getConfiguration('ifun-oa-i18n').ifunI18n;
 
-      const { enPath, zhPath } = getI18nPath();
+      const { enPath, zhPath } = await getI18nPath();
 
       const enObj = await readJSONFile(enPath);
       const zhObj = await readJSONFile(zhPath);
